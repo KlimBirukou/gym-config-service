@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: gym-config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations:
+            - classpath:/config
+            - classpath:/config/{application}
+
+server:
+  port: 8888
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: warn
+    #org.springframework.cloud.config: info
+    org.springframework.cloud.config.server: DEBUG
+    org.springframework.cloud.native: DEBUG
+    # Если используете файловую систему (native profile):
+    org.springframework.cloud.config.server.resource.GenericResourceRepository: DEBUG
