@@ -1,4 +1,4 @@
-name: gym
+name: gym-dev
 
 services:
   gym-config-server:
@@ -9,14 +9,16 @@ services:
     ports:
       - "8888:8888"
     networks:
-      - gym-network
+      - gym-dev-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev,native
     healthcheck:
-      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888/actuator/health" ]
+      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 60s
 
 networks:
-  gym-network:
+  gym-dev-network:
     external: true

@@ -1,0 +1,40 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    url: jdbc:postgresql://gym-auth-database:5432/gym_auth_database?currentSchema=gym_auth_schema
+    username: gym_auth_user
+    password: LiGzbc7J0ZJza6pp
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        default_schema: gym_auth_schema
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/main-changelog.yaml
+    default-schema: gym_auth_schema
+    contexts: default
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+application:
+  auth:
+    secret: HodGQAGZgQtgrkLj4JaCw0mfZQMRoY8pJfKLEEHDCvg=
+    max-login-attempts: 3
+    block-duration: PT15M
+    jwt-expiration: 86400
+    prefix: "Bearer"
+  security:
+    endpoints:
+      public-endpoints:
+        - "/actuator/health"
+        - "/actuator/info"
+      internal-pattern: "/internal/**"
+      internal-prefix: "/internal/"

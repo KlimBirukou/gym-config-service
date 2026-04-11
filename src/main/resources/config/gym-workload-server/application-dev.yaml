@@ -1,0 +1,41 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:workload-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+application:
+  security:
+    internal-prefix: "/internal"
+    public-prefix: "/api"
+    endpoints:
+      public-endpoints:
+        - "/api/v1/workload"
+        - "/actuator/**"
+        - "/swagger-ui/**"
+        - "/swagger-ui.html"
+        - "/v3/api-docs/**"
+  auth:
+    url: "http://gym-auth-server:8083"
+    path: "/internal/v1/token"
+  swagger:
+    server-url: "http://localhost:8082"
+    server-description: "Dev server"
+
+clients:
+  auth-server:
+    url: http://gym-auth-server:8083

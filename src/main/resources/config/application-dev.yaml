@@ -1,0 +1,42 @@
+spring:
+  output:
+    ansi:
+      enabled: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: WARN
+    com.epam.gym: DEBUG
+  pattern:
+    correlation: "[${spring.application.name:},%X{requestUid:-}] "
+    console: "%clr([){faint}%clr(${spring.application.name:}){cyan}%clr( : ){faint}%clr(%X{requestUid:-}){magenta}%clr(]){faint} %clr(%d{yyyy-MM-dd HH:mm:ss}){faint} %clr(%-5level) %clr([%thread]){faint} %clr(%logger{36}){cyan} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://gym-discovery-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+
+application:
+  request-uid:
+    header-name: "X-Request-Uid"
+    mdc-key: "requestUid"
+  internal:
+    secret: AUTH_SECRET_SUPER_PUPER_SECRET_ULTRA_MAX_FOREVER_SECRET
+    header-name: "X-Internal-Secret"
+    principal: "INTERNAL_SERVICE"

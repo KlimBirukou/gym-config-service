@@ -1,8 +1,6 @@
 spring:
   application:
     name: gym-config-server
-  profiles:
-    active: native
   cloud:
     config:
       server:
@@ -26,8 +24,6 @@ management:
 logging:
   level:
     root: warn
-    #org.springframework.cloud.config: info
     org.springframework.cloud.config.server: DEBUG
     org.springframework.cloud.native: DEBUG
-    # Если используете файловую систему (native profile):
     org.springframework.cloud.config.server.resource.GenericResourceRepository: DEBUG

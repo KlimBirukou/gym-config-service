@@ -1,4 +1,4 @@
-package com.epam.gym.configserver;
+package com.epam.gym.config;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

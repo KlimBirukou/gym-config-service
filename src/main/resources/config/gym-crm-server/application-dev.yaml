@@ -1,0 +1,83 @@
+server:
+  port: 8084
+
+spring:
+  datasource:
+    url: jdbc:postgresql://gym-crm-database:5432/gym_crm_database?currentSchema=gym_crm_schema
+    username: gym_crm_user
+    password: vG8k2Pz9mN4Xw7Tq
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: gym_crm_schema
+        order_inserts: true
+        order_updates: true
+        jdbc:
+          batch_size: 20
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/main-changelog.yaml
+    default-schema: gym_crm_schema
+    contexts: default,seed
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+application:
+  security:
+    endpoints:
+      public-endpoints:
+        - "/api/v1/auth/registration/trainee"
+        - "/api/v1/auth/registration/trainer"
+        - "/api/v1/auth/login"
+        - "/actuator/**"
+        - "/swagger-ui/**"
+        - "/swagger-ui.html"
+        - "/v3/api-docs/**"
+  user:
+    username-delimiter: "."
+  swagger:
+    server-url: "http://localhost:8084"
+    server-description: "Dev server"
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      workloadService:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 3
+
+management:
+  endpoint:
+    health:
+      show-components: always
+    prometheus:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    disable-swagger-default-url: true

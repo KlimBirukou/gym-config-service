@@ -1,7 +1,13 @@
+```bash
+docker network create gym-network
 ```
+
+
+```bash
 ./gradlew build -x test
 ```
 
-```
-docker compose -f compose.yaml up -d  
+
+```bash
+docker compose -f compose.dev.yaml up -d  
 ```
