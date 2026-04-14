@@ -30,12 +30,13 @@ application:
         - "/swagger-ui.html"
         - "/v3/api-docs/**"
   auth:
-    url: "http://gym-auth-server:8083"
+    url: "http://gym-auth-service:8083"
     path: "/internal/v1/token"
   swagger:
     server-url: "http://localhost:8082"
     server-description: "Dev server"
-
-clients:
-  auth-server:
-    url: http://gym-auth-server:8083
+  jwt:
+    auth-header: "Authorization"
+    bearer-prefix: "Bearer"
+  clients:
+    auth: "gym-auth-service"

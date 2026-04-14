@@ -45,6 +45,12 @@ application:
   swagger:
     server-url: "http://localhost:8084"
     server-description: "Dev server"
+  jwt:
+    auth-header: "Authorization"
+    bearer-prefix: "Bearer"
+  clients:
+    auth: "gym-auth-service"
+    workload: "gym-workload-service"
 
 resilience4j:
   circuitbreaker:
@@ -81,3 +87,4 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: alpha
     disable-swagger-default-url: true
+

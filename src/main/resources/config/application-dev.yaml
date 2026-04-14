@@ -25,7 +25,7 @@ logging:
 eureka:
   client:
     service-url:
-      defaultZone: http://gym-discovery-server:8761/eureka/
+      defaultZone: http://gym-discovery-service:8761/eureka/
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
