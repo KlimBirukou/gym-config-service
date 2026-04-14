@@ -1,13 +1,1 @@
-```bash
-docker network create gym-network
-```
-
-
-```bash
-./gradlew build -x test
-```
-
-
-```bash
-docker compose -f compose.dev.yaml up -d  
-```
+Centralized configuration service built on Spring Cloud Config. Stores and distributes externalized settings for all services in the system, including addresses, ports, security parameters, and the discovery service URL. Starts first in the boot sequence — before Eureka and any application services — since all other components rely on it to obtain the properties required for their own initialization.
