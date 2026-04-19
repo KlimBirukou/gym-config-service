@@ -17,6 +17,10 @@ spring:
     show-sql: false
   jackson:
     property-naming-strategy: SNAKE_CASE
+  kafka:
+    bootstrap-servers: kafka-1:9092,kafka-2:9092,kafka-3:9092
+    consumer:
+      group-id: gym-workload-consumer-group
 
 application:
   security:
@@ -40,3 +44,11 @@ application:
     bearer-prefix: "Bearer"
   clients:
     auth: "gym-auth-service"
+  messaging:
+    topics:
+      trainer-workload: trainer.workload.events
+
+logging:
+  level:
+    org.springframework.kafka: DEBUG
+    org.apache.kafka: WARN
