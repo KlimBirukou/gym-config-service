@@ -34,7 +34,27 @@ application:
   security:
     endpoints:
       public-endpoints:
-        - "/actuator/health"
-        - "/actuator/info"
+        - "/actuator/**"
       internal-pattern: "/internal/**"
       internal-prefix: "/internal/"
+
+management:
+  endpoint:
+    health:
+      show-components: always
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,custom
+  metrics:
+    tags:
+      application: gym-auth-service
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  info:
+    env:
+      enabled: true
