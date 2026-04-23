@@ -2,19 +2,8 @@ server:
   port: 8082
 
 spring:
-  datasource:
-    url: jdbc:h2:mem:workload-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: false
+  mongodb:
+    uri: mongodb://admin:password@gym-workload-database:27017/gym_workload_database?authSource=admin&directConnection=true
   jackson:
     property-naming-strategy: SNAKE_CASE
   kafka:
@@ -57,7 +46,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,prometheus,custom
+        include: health,info,prometheus,custom,env
   metrics:
     tags:
       application: gym-workload-service
